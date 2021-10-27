@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +27,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/accounts")
 @Tag(name = "Gerenciamento de Contas")
-@Validated
 public class AccountController {
 
 	@Autowired
@@ -40,7 +38,7 @@ public class AccountController {
 			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorMessageDTO.class))) })
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountDTO> create(@Valid @RequestBody AccountDTO accountRequestDTO) {
+	public ResponseEntity<AccountDTO> create(@RequestBody @Valid AccountDTO accountRequestDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountService.createAccount(accountRequestDTO));
 	}
 
