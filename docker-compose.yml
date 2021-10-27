@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - 8080:8880
+    container_name: case
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_PLATFORM=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+          
+  postgres:
+    ports:
+      - 5433:5432
+    image: 'postgres:14.0-alpine'
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
