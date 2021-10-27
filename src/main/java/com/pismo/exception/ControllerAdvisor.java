@@ -16,7 +16,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler  {
 	
 	
 	  @ExceptionHandler(AccountNotFoundExcpt.class)
-	  public ResponseEntity<ErrorMessageDTO> resourceNotFoundException(AccountNotFoundExcpt ex, WebRequest request) {
+	  public ResponseEntity<ErrorMessageDTO> accountResourceNotFoundException(AccountNotFoundExcpt ex, WebRequest request) {
 	    ErrorMessageDTO message = new ErrorMessageDTO(
 	        HttpStatus.NOT_FOUND.value(),
 	        new Date(),
@@ -27,7 +27,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler  {
 	  }
 	  
 	  @ExceptionHandler(OperationTypeExcpt.class)
-	  public ResponseEntity<ErrorMessageDTO> resourceNotFoundException(OperationTypeExcpt ex, WebRequest request) {
+	  public ResponseEntity<ErrorMessageDTO> operationTypeResourceNotFoundException(OperationTypeExcpt ex, WebRequest request) {
 	    ErrorMessageDTO message = new ErrorMessageDTO(
 	        HttpStatus.NOT_FOUND.value(),
 	        new Date(),
@@ -38,7 +38,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler  {
 	  }
 	  
 	  @ExceptionHandler(TransactionExcpt.class)
-	  public ResponseEntity<ErrorMessageDTO> resourceNotFoundException(TransactionExcpt ex, WebRequest request) {
+	  public ResponseEntity<ErrorMessageDTO> transactionException(TransactionExcpt ex, WebRequest request) {
 	    ErrorMessageDTO message = new ErrorMessageDTO(
 	        HttpStatus.NOT_FOUND.value(),
 	        new Date(),
@@ -49,7 +49,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler  {
 	  }
 	  
 	  @ExceptionHandler(AccountInvalidDocumentExcpt.class)
-	  public ResponseEntity<ErrorMessageDTO> resourceNotFoundException(AccountInvalidDocumentExcpt ex, WebRequest request) {
+	  public ResponseEntity<ErrorMessageDTO> accountInvalidDocumentException(AccountInvalidDocumentExcpt ex, WebRequest request) {
 	    ErrorMessageDTO message = new ErrorMessageDTO(
 	        HttpStatus.BAD_REQUEST.value(),
 	        new Date(),

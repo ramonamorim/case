@@ -16,7 +16,6 @@ public class AccountDTO {
 	private Long id;
 
 	@NotNull
-	@Pattern(regexp = "^([0-9]{11}|[0-9]{14})$")
 	@JsonProperty("document_number")
 	private String documentNumber;
 	

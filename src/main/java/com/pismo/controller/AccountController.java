@@ -38,7 +38,7 @@ public class AccountController {
 			@ApiResponse(responseCode = "400", description = "Bad request", content = @Content(schema = @Schema(implementation = ErrorMessageDTO.class))) })
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AccountDTO> create(@RequestBody @Valid AccountDTO accountRequestDTO) {
+	public ResponseEntity<AccountDTO> create(@RequestBody AccountDTO accountRequestDTO) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(accountService.createAccount(accountRequestDTO));
 	}
 
