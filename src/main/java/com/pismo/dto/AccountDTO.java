@@ -1,5 +1,7 @@
 package com.pismo.dto;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,5 +23,9 @@ public class AccountDTO {
 	@NotNull
 	@JsonProperty("document_number")
 	private String documentNumber;
+	
+	@NotNull
+	@JsonProperty("avaible_credit_limit")
+	private  BigDecimal availableCreditLimit;
 
 }

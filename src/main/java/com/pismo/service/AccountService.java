@@ -1,5 +1,6 @@
 package com.pismo.service;
 
+import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class AccountService {
 			throw new AccountInvalidDocumentExcpt(INVALID_DOCUMENT);
 		}
 		
-		var entity = Account.builder().documentNumber(accountRequestDTO.getDocumentNumber()).build();
+		var entity = Account.builder().documentNumber(accountRequestDTO.getDocumentNumber()).availableCreditLimit(BigDecimal.ZERO).build();
 		return accountRepo.save(entity).toResponseCreated();
 
 	}

@@ -40,7 +40,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler  {
 	  @ExceptionHandler(TransactionExcpt.class)
 	  public ResponseEntity<ErrorMessageDTO> transactionException(TransactionExcpt ex, WebRequest request) {
 	    ErrorMessageDTO message = new ErrorMessageDTO(
-	        HttpStatus.NOT_FOUND.value(),
+	        HttpStatus.BAD_REQUEST.value(),
 	        new Date(),
 	        ex.getMessage(),
 	        request.getDescription(false));

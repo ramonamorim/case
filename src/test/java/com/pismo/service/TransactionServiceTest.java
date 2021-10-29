@@ -1,6 +1,5 @@
 package com.pismo.service;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,20 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.pismo.dto.AccountDTO;
 import com.pismo.dto.TransactionDTO;
-import com.pismo.exception.AccountInvalidDocumentExcpt;
-import com.pismo.exception.AccountNotFoundExcpt;
+import com.pismo.exception.TransactionExcpt;
 import com.pismo.model.Account;
 import com.pismo.model.OperationType;
 import com.pismo.model.Transaction;
 import com.pismo.repository.AccountRepo;
 import com.pismo.repository.TransactionRepo;
-import com.pismo.service.AccountService;
-import com.pismo.service.OperationTypeService;
-import com.pismo.service.TransactionService;
 
 @ExtendWith(MockitoExtension.class)
 public class TransactionServiceTest {
@@ -40,7 +33,7 @@ public class TransactionServiceTest {
 
 	@InjectMocks
 	private TransactionService transactionService;
-	
+
 	@Mock
 	private OperationTypeService operationTypeService;
 
@@ -56,17 +49,32 @@ public class TransactionServiceTest {
 
 		when(accountRepo.findById(1L))
 				.thenReturn(Optional.of(Account.builder().id(1L).documentNumber("01234567899").build()));
-		
+
 		when(operationTypeService.getOperationTypeBydId(1L)).thenReturn(operation);
-		
 
 		TransactionDTO transactionCreated = transactionService
 				.createTransaction(transaction.getPersistResultTransaction());
-		
 
 		assertEquals(transaction.getAccount().getId(), transactionCreated.getAccount());
 		assertEquals(transaction.getOperationType().getId(), transactionCreated.getOperationType());
 		assertEquals(transaction.getAmount(), transactionCreated.getAmount());
+
+	}
+
+	@Test
+	public void transactionCreateError() throws Exception {
+		Account account = new Account().builder().id(1L).documentNumber("01234567899")
+				.availableCreditLimit(new BigDecimal("100.00")).build();
+		OperationType operation = OperationType.builder().id(1L).description("SAQUE").build();
+
+		TransactionDTO transaction = Transaction.builder().account(account).operationType(operation)
+				.amount(new BigDecimal("101.00")).build().getPersistResultTransaction();
+
+		when(accountRepo.findById(1L)).thenReturn(Optional.of(account));
+
+		when(operationTypeService.getOperationTypeBydId(1L)).thenReturn(operation);
+
+		assertThrows(TransactionExcpt.class, () -> transactionService.createTransaction(transaction));
 
 	}
 
