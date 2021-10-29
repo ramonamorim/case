@@ -30,7 +30,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = PRIVATE)
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 @Table(name = "Transaction")
 public class Transaction implements Serializable {
 	
