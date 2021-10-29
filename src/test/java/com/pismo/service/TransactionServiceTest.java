@@ -39,16 +39,16 @@ public class TransactionServiceTest {
 
 	@Test
 	public void transactionCreateTest() throws Exception {
-		Account account = new Account().builder().id(1L).documentNumber("01234567899").build();
+		Account account = new Account().builder().id(1L).documentNumber("01234567899").availableCreditLimit(new BigDecimal("100.00")).build();
 		OperationType operation = OperationType.builder().id(1L).description("SAQUE").build();
 
 		Transaction transaction = Transaction.builder().account(account).operationType(operation)
-				.amount(new BigDecimal(50)).build();
+				.amount(new BigDecimal("50.00")).build();
 
 		when(transactionRepo.save(any(Transaction.class))).thenReturn(transaction);
 
 		when(accountRepo.findById(1L))
-				.thenReturn(Optional.of(Account.builder().id(1L).documentNumber("01234567899").build()));
+				.thenReturn(Optional.of(account));
 
 		when(operationTypeService.getOperationTypeBydId(1L)).thenReturn(operation);
 

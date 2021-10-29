@@ -49,6 +49,7 @@ public class Account implements Serializable {
 	@Column(precision = 19, scale = 2, nullable = false)
 	private BigDecimal availableCreditLimit = BigDecimal.ZERO;
 	
+	
 	public AccountDTO toResponseFind() {
 		return AccountDTO.builder().id(this.id).documentNumber(this.documentNumber).availableCreditLimit(this.availableCreditLimit).build();
 		
